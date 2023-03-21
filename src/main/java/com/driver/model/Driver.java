@@ -1,32 +1,36 @@
 package com.driver.model;
 
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class Driver {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int driverid;
+    private int driverId;
+
+    private String mobile;
+
+    private String password;
+
+    @OneToOne(mappedBy = "driver",cascade = CascadeType.ALL)
+    private Cab cab;
+
+    @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
+    private List<TripBooking> tripBookings = new ArrayList<>();
 
     public Driver() {
     }
 
-    public Driver(int driverid, String mobile, String password, Cab cab, List<TripBooking> tripBookingList) {
-        this.driverid = driverid;
-        this.mobile = mobile;
-        this.password = password;
-        this.cab = cab;
-        this.tripBookingList = tripBookingList;
+    public int getDriverId() {
+        return driverId;
     }
 
-    public int getDriverid() {
-        return driverid;
-    }
-
-    public void setDriverid(int driverid) {
-        this.driverid = driverid;
+    public void setDriverId(int driverId) {
+        this.driverId = driverId;
     }
 
     public String getMobile() {
@@ -53,23 +57,11 @@ public class Driver {
         this.cab = cab;
     }
 
-    public List<TripBooking> getTripBookingList() {
-        return tripBookingList;
+    public List<TripBooking> getTripBookings() {
+        return tripBookings;
     }
 
-    public void setTripBookingList(List<TripBooking> tripBookingList) {
-        this.tripBookingList = tripBookingList;
+    public void setTripBookings(List<TripBooking> tripBookings) {
+        this.tripBookings = tripBookings;
     }
-
-    private String mobile;
-    private String password;
-
-
-    @OneToOne(mappedBy = "driver" , cascade = CascadeType.ALL)
-    Cab cab;
-
-    @OneToMany(mappedBy = "driver" , cascade = CascadeType.ALL)
-    List<TripBooking> tripBookingList = new ArrayList<>();
-
-
 }

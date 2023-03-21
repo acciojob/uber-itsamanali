@@ -36,7 +36,6 @@ public class AdminServiceImpl implements AdminService {
 		//Update the password of admin with given id
 		Admin admin = adminRepository1.findById(adminId).get();
 		admin.setPassword(password);
-		adminRepository1.save(admin);
 		return admin;
 	}
 
@@ -44,7 +43,6 @@ public class AdminServiceImpl implements AdminService {
 	public void deleteAdmin(int adminId){
 		// Delete admin without using deleteById function
 		Admin admin = adminRepository1.findById(adminId).get();
-
 		adminRepository1.delete(admin);
 	}
 
@@ -58,6 +56,7 @@ public class AdminServiceImpl implements AdminService {
 	public List<Customer> getListOfCustomers() {
 		//Find the list of all customers
 		return customerRepository1.findAll();
+
 	}
 
 }

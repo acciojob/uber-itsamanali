@@ -1,30 +1,43 @@
 package com.driver.model;
 
+
 import javax.persistence.*;
 
 @Entity
 public class TripBooking {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int tripBookingId;
+
     private String fromLocation;
+
     private String toLocation;
-    private TripStatus tripstatus;
-    private int distanceInKilometer;
+
+    private int distanceInKm;
+
+    @Enumerated(value = EnumType.STRING)
+    private TripStatus status;
+
     private int bill;
+
+    @ManyToOne
+    @JoinColumn
+    private Customer customer;
+
+    @ManyToOne
+    @JoinColumn
+    private Driver driver;
 
     public TripBooking() {
     }
 
-    public TripBooking(int tripBookingId, String fromLocation, String toLocation, TripStatus tripstatus, int distanceInKilometer, int bill, Driver driver, Customer customer) {
-        this.tripBookingId = tripBookingId;
-        this.fromLocation = fromLocation;
-        this.toLocation = toLocation;
-        this.tripstatus = tripstatus;
-        this.distanceInKilometer = distanceInKilometer;
-        this.bill = bill;
-        this.driver = driver;
-        this.customer = customer;
+    public TripStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TripStatus status) {
+        this.status = status;
     }
 
     public int getTripBookingId() {
@@ -51,20 +64,12 @@ public class TripBooking {
         this.toLocation = toLocation;
     }
 
-    public TripStatus getTripstatus() {
-        return tripstatus;
+    public int getDistanceInKm() {
+        return distanceInKm;
     }
 
-    public void setTripstatus(TripStatus tripstatus) {
-        this.tripstatus = tripstatus;
-    }
-
-    public int getDistanceInKilometer() {
-        return distanceInKilometer;
-    }
-
-    public void setDistanceInKilometer(int distanceInKilometer) {
-        this.distanceInKilometer = distanceInKilometer;
+    public void setDistanceInKm(int distanceInKm) {
+        this.distanceInKm = distanceInKm;
     }
 
     public int getBill() {
@@ -75,14 +80,6 @@ public class TripBooking {
         this.bill = bill;
     }
 
-    public Driver getDriver() {
-        return driver;
-    }
-
-    public void setDriver(Driver driver) {
-        this.driver = driver;
-    }
-
     public Customer getCustomer() {
         return customer;
     }
@@ -91,11 +88,11 @@ public class TripBooking {
         this.customer = customer;
     }
 
-    @ManyToOne
-    @JoinColumn
-    Driver driver;
+    public Driver getDriver() {
+        return driver;
+    }
 
-    @ManyToOne
-    @JoinColumn
-    Customer customer;
+    public void setDriver(Driver driver) {
+        this.driver = driver;
+    }
 }

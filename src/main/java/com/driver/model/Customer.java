@@ -1,6 +1,5 @@
 package com.driver.model;
 
-import org.hibernate.annotations.Generated;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -8,19 +7,19 @@ import java.util.List;
 
 @Entity
 public class Customer {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int customerId;
+
     private String mobile;
 
-    public Customer() {
-    }
+    private String password;
 
-    public Customer(int customerId, String mobile, String password, List<TripBooking> tripBookingList) {
-        this.customerId = customerId;
-        this.mobile = mobile;
-        this.password = password;
-        this.tripBookingList = tripBookingList;
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
+    private List<TripBooking> tripBookingList = new ArrayList<>();
+
+    public Customer() {
     }
 
     public int getCustomerId() {
@@ -54,9 +53,4 @@ public class Customer {
     public void setTripBookingList(List<TripBooking> tripBookingList) {
         this.tripBookingList = tripBookingList;
     }
-
-    String password;
-
-    @OneToMany(mappedBy = "customer" , cascade = CascadeType.ALL)
-    List<TripBooking> tripBookingList = new ArrayList<>();
 }

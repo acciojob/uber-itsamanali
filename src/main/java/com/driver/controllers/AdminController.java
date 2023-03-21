@@ -15,31 +15,42 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
-    @Autowired
+
+
+	@Autowired
 	AdminServiceImpl adminService;
+
 	@PostMapping("/register")
 	public ResponseEntity<Void> registerAdmin(@RequestBody Admin admin){
+		//return new ResponseEntity<>(HttpStatus.OK);
 		adminService.adminRegister(admin);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@PutMapping("/update")
 	public ResponseEntity<Admin> updateAdminPassword(@RequestParam Integer adminId, @RequestParam String password){
+		//return new ResponseEntity<>(updatedAdmin, HttpStatus.OK);
+
 		return new ResponseEntity<>(adminService.updatePassword(adminId,password), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/delete")
 	public void deleteAdmin(@RequestParam Integer adminId){
+		//empty
 		adminService.deleteAdmin(adminId);
 	}
 
 	@GetMapping("/listOfCustomers")
 	public List<Customer> listOfCustomers() {
+		//return listOfCustomers;
 		return adminService.getListOfCustomers();
 	}
 
+
 	@GetMapping("/listOfDrivers")
 	public List<Driver> listOfDrivers() {
+		//return listOfDrivers;
+
 		return adminService.getListOfDrivers();
 	}
 }
